@@ -5,7 +5,7 @@ Write some code that will flatten an array of arbitrarily nested arrays of integ
 
 // exam if the array is already flattened
 // returns true/false
-const isArrayFlattened = function(array) {
+const isArrayFlattened = function (array) {
   if (!array) {
     return true;
   }
@@ -22,7 +22,7 @@ const isArrayFlattened = function(array) {
 // This is ensured by that [1].concat(2).concat(3) returns the same value as
 // [1].concat([2, 3]), which is [1, 2, 3] for both
 // ALTERNATIVELY to reduce we can use Array.prototype.flat() or Array.prototype.flatMap()
-const flatten = function(array) {
+const flatten = function (array) {
   while (!isArrayFlattened(array)) {
     array = array.reduce((previous, item) => {
       return previous.concat(item);
@@ -31,10 +31,19 @@ const flatten = function(array) {
   return array;
 };
 
-console.log(flatten([])); // []
-console.log(flatten([1, [2], 3])); // [1, 2, 3]
-console.log(flatten([[1, 2], 3])); // [1, 2, 3]
-console.log(flatten([[[1], 2], 3])); // [1, 2, 3]
-console.log(flatten([[[[1]], 2], 3])); // [1, 2, 3]
-console.log(flatten([[1], [2], [3]])); // [1, 2, 3]
-console.log(flatten([[[[1], [2]], [3]]])); // [1, 2, 3]
+const cases = [
+  [],
+  [1, [2], 3],
+  [[1, 2], 3],
+  [[[1], 2], 3],
+  [[[[1]], 2], 3],
+  [[1], [2], [3]],
+  [[[[1], [2]], [3]]],
+  [[1, 2, [3]], 4]
+];
+
+cases.forEach((item, index) => {
+  let el = JSON.stringify(item)
+  console.log(index + 1 + ")", el, " -> ", flatten(item))
+}
+);
