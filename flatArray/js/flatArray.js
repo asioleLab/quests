@@ -3,8 +3,7 @@ Write some code that will flatten an array of arbitrarily nested arrays of integ
  */
 'use strict';
 
-// exam if the array is already flattened
-// returns true/false
+// exam if the array is already flattened; returns true/false
 const isArrayFlattened = function (array) {
   if (!array) {
     return true;
@@ -17,11 +16,10 @@ const isArrayFlattened = function (array) {
   return true;
 };
 
-// main function to flatten the arrays. The use of Array.prototype.reduce is so that each iteration
-// a (potential) layer of square brackets is removed.
-// This is ensured by that [1].concat(2).concat(3) returns the same value as
-// [1].concat([2, 3]), which is [1, 2, 3] for both
-// ALTERNATIVELY to reduce we can use Array.prototype.flat() or Array.prototype.flatMap()
+/*  main function to flatten the arrays. The use of Array.prototype.reduce is so that each iteration a (potential) layer of square brackets is removed.
+ This is ensured by that [1].concat(2).concat(3) returns the same value as [1].concat([2, 3]), which is [1, 2, 3] for both
+ ALTERNATIVELY to reduce we can use Array.prototype.flat() or Array.prototype.flatMap() */
+ 
 const flatten = function (array) {
   while (!isArrayFlattened(array)) {
     array = array.reduce((previous, item) => {
