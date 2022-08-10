@@ -10,7 +10,7 @@ public class ChatServer {
 
     public ChatServer(){
         try {
-            serverSocket = new ServerSocket(6969);
+            serverSocket = new ServerSocket(10000);
             allUsers= new ArrayList<>();
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
