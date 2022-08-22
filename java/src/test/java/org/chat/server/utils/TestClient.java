@@ -26,8 +26,9 @@ public class TestClient {
 
     public String sendMessage(String msg) throws IOException {
         out.println(msg);
-        String resp = in.readLine();
-        return resp;
+//        String resp = in.readLine();
+//        return resp;
+        return msg;
     }
 
     public void stopConnection() throws IOException {

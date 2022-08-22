@@ -13,11 +13,14 @@ public class ChatThread implements Runnable{
     private BufferedReader reader;
     private boolean running;
     private List<PrintWriter> allUsers;
+    private List<ChatMessage> chatMessage;
     private String username;
 
-    public ChatThread(Socket socket, List<PrintWriter> allUsers) {
+
+    public ChatThread(Socket socket, List<PrintWriter> allUsers, List<ChatMessage> chatMessage) {
         this.socket = socket;
         this.allUsers = allUsers;
+        this.chatMessage=chatMessage;
 
         try{
             writer=new PrintWriter(socket.getOutputStream());
@@ -36,6 +39,11 @@ public class ChatThread implements Runnable{
         writer.flush();
         username=this.getText();
         this.broadcastMessage("joined the chat room");
+        if(this.username!=null){
+            writer.println("<==== CHAT HISTORY ====>");
+            this.chatMessage.forEach(msg->writer.println(msg.sender+": "+msg.message));
+            writer.flush();
+        }
         while (running){
             String message = this.getText();
             if(message == null){
@@ -69,10 +77,13 @@ public class ChatThread implements Runnable{
         }
     }
 
-    private String getText(){
+    private synchronized String getText(){
         String response= null;
         try{
             response=reader.readLine();
+            if(this.username!=null)
+            this.chatMessage.add(new ChatMessage(this.username,response));
+
         }catch(IOException ex){
             System.err.println(ex.getMessage());
         }
